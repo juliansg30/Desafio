@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Encriptador de texto</title>
+  </head>
+  <body>
+    <div class="contenerdor">
+      <div class="encriptar">
+        <textarea
+          name="texto"
+          class="texto"
+          id="texto"
+          cols="30"
+          rows="10"
+          placeholder="ingresar el texto aqui"
+        ></textarea>
+
+        <div class="terminos">
+          <p>Solo letras minusculas y sin acentos.</p>
+        </div>
+
+        <div class="botones">
+          <button class="btn-encriptar" type="button" onclick="encriptar()">
+            Encriptar
+          </button>
+          <input
+            class="btn-desencriptar"
+            type="button"
+            value="Desencriptar"
+            onclick="desencriptar()"
+          />
+        </div>
+      </div>
+
+      <div class="encriptado">
+        <img src="img/muñeco.png" alt="" id="muñeco" />
+        <div class="mensaje-encriptado" id="mensaje-encriptado">
+          <h2 id=" titulo-mensaje">Ningun mensaje fue encontrado</h2>
+          <p id="parrafo">
+            ingresa el texto que deseas encriptar o desencriptar
+          </p>
+          <!-- <textarea
+            name="mensaje"
+            id="mensaje"
+            cols="30"
+            rows="10"
+            class="mensaje"
+          ></textarea> -->
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function encriptar() {
+        let input = document.getElementById("texto").value;
+        let tituloMensaje = document.getElementById("mensaje-encriptado");
+        let parrafo = document.getElementById("parrafo");
+        let muñeco = document.getElementById("muñeco");
+
+        let output = [];
+        for (let i = 0; i < input.length; i++) {
+          let code = input[i].charCodeAt(0) + 3;
+          output.push(String.fromCharCode(code));
+        }
+        output = output.join("");
+
+        if (output.length != 0) {
+          muñeco.src = "./img/encriptado.png";
+          document.getElementById("texto").value = output;
+          tituloMensaje.textContent = "Texto encriptado con éxito";
+          parrafo.textContent = "";
+        } else {
+          muñeco.src = "./img/muñeco.png";
+          tituloMensaje.textContent = "Ningún mensaje fue encontrado";
+          parrafo.textContent =
+            "Ingresa el texto que deseas encriptar o desencriptar";
+          swal("Ooops!", "Debes ingresar un texto", "warning");
+        }
+      }
+      //----------------------------------------------------------------------------
+      function desencriptar() {
+        let input = document.getElementById("texto").value;
+        let tituloMensaje = document.getElementById("mensaje-encriptado");
+        let parrafo = document.getElementById("parrafo");
+        let muñeco = document.getElementById("muñeco");
+
+        let output = [];
+        for (let i = 0; i < input.length; i++) {
+          let code = input[i].charCodeAt(0) - 3;
+          output.push(String.fromCharCode(code));
+        }
+        output = output.join("");
+
+        if (output.length != 0) {
+          muñeco.src = "img/des.png";
+          document.getElementById("texto").value = output;
+          tituloMensaje.textContent = "Texto desencriptado con éxito";
+          parrafo.textContent = "";
+        } else {
+          muñeco.src = "./img/muñeco.png";
+          tituloMensaje.textContent = "Ningún mensaje fue encontrado";
+          parrafo.textContent =
+            "Ingresa el texto que deseas encriptar o desencriptar";
+          swal("Ooops!", "Debes ingresar un texto", "warning");
+        }
+      }
+    </script>
+  </body>
+</html>
